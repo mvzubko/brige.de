@@ -68,4 +68,3 @@ To document work done at client sites, capture images, gather extra information 
 - *SSL Encryption for data protection*  
 - *Stored data should comply with GDPR regulations (if applicable)*  
 
-Would you like me to create a prototype or an actual implementation for this form?
