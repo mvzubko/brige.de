@@ -8,5 +8,5 @@ In this section, we present the mockups for the user interface of the Bridge Cli
 ## 2. Login Screen
 <img src="img/Login Screen.png" alt="Login Screen" width="400"/>
 
-## 3. Home Screen
-<img src="img/Home Screen.png" alt="Home Screen" width="400"/>
+## 3. All Service Jobs Screen
+<img src="img/AllServiceJobs.png" alt="All Service Jobs Screen" width="400"/>
