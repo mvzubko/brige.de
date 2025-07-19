@@ -1,444 +1,440 @@
 # Software Requirements Specification for Brige Service Management
 
-## Оглавление
+## Table of Contents
 
-1. [Введение](#1-введение)  
-    1.1. [Цель документа](#11-цель-документа)  
-    1.2. [Область применения](#12-область-применения)  
-    1.3. [Определения, сокращения и аббревиатуры](#13-определения-сокращения-и-аббревиатуры)  
+1. [Introduction](#1-introduction)  
+    1.1. [Purpose of the Document](#11-purpose-of-the-document)  
+    1.2. [Scope](#12-scope)  
+    1.3. [Definitions, Abbreviations and Acronyms](#13-definitions-abbreviations-and-acronyms)  
 
-2. [Общее описание системы](#2-общее-описание-системы)  
-    2.1. [Общий взгляд на систему](#21-общий-взгляд-на-систему)  
-    2.2. [Классы и характеристики пользователей](#22-классы-и-характеристики-пользователей)  
-    2.3. [Операционная среда](#23-операционная-среда)  
-    2.4. [Предположения и зависимости](#24-предположения-и-зависимости)  
-    2.5. [Ограничения](#25-ограничения)  
+2. [General System Description](#2-general-system-description)  
+    2.1. [System Overview](#21-system-overview)  
+    2.2. [User Classes and Characteristics](#22-user-classes-and-characteristics)  
+    2.3. [Operating Environment](#23-operating-environment)  
+    2.4. [Assumptions and Dependencies](#24-assumptions-and-dependencies)  
+    2.5. [Constraints](#25-constraints)  
 
-3. [Функциональные требования](#3-функциональные-требования)  
-    3.1. [Регистрация заявок](#31-регистрация-заявок)  
-    3.2. [Регистрация выполненных работ](#32-регистрация-выполненных-работ)  
-    3.3. [Подтверждение выполненной работы](#33-подтверждение-выполненной-работы)  
-    3.4. [Отправка отчётов](#34-отправка-отчётов)  
-    3.5. [Формирование отчётов и аналитика](#35-формирование-отчётов-и-аналитика)  
-    3.6. [Администрирование и управление пользователями](#36-администрирование-и-управление-пользователями)  
+3. [Functional Requirements](#3-functional-requirements)  
+    3.1. [Request Registration](#31-request-registration)  
+    3.2. [Work Completion Registration](#32-work-completion-registration)  
+    3.3. [Work Completion Confirmation](#33-work-completion-confirmation)  
+    3.4. [Report Sending](#34-report-sending)  
+    3.5. [Report Generation and Analytics](#35-report-generation-and-analytics)  
+    3.6. [Administration and User Management](#36-administration-and-user-management)  
 
-4. [Нефункциональные требования](#4-нефункциональные-требования)  
-    4.1. [Работа в офлайн-режиме](#41-работа-в-офлайн-режиме)  
-    4.2. [Безопасность](#42-безопасность)  
-    4.3. [Производительность](#43-производительность)  
-    4.4. [Удобство использования](#44-удобство-использования)  
-    4.5. [Надёжность](#45-надёжность)  
-    4.6. [Энергоэффективность](#46-энергоэффективность)  
+4. [Non-Functional Requirements](#4-non-functional-requirements)  
+    4.1. [Offline Mode](#41-offline-mode)  
+    4.2. [Security](#42-security)  
+    4.3. [Performance](#43-performance)  
+    4.4. [Usability](#44-usability)  
+    4.5. [Reliability](#45-reliability)  
+    4.6. [Energy Efficiency](#46-energy-efficiency)  
 
-5. [Требования к интерфейсам](#5-требования-к-интерфейсам)  
-    5.1. [Пользовательский интерфейс](#51-пользовательский-интерфейс)  
-    5.2. [Интеграция и API](#52-интеграция-и-api)  
+5. [Interface Requirements](#5-interface-requirements)  
+    5.1. [User Interface](#51-user-interface)  
+    5.2. [Integration and API](#52-integration-and-api)  
 
-6. [Системные и аппаратные требования](#6-системные-и-аппаратные-требования)  
-    6.1. [Системные требования](#61-системные-требования)  
-    6.2. [Аппаратные требования](#62-аппаратные-требования)  
+6. [System and Hardware Requirements](#6-system-and-hardware-requirements)  
+    6.1. [System Requirements](#61-system-requirements)  
+    6.2. [Hardware Requirements](#62-hardware-requirements)  
 
-7. [Технический стэк и архитектурное решение](#7-технический-стэк-и-архитектурное-решение)  
-    7.1. [Общая архитектура](#71-общая-архитектура)  
-    7.2. [Управление пользователями и безопасность](#72-управление-пользователями-и-безопасность)  
-    7.3. [Интеграция и коммуникация](#73-интеграция-и-коммуникация)  
-    7.4. [Мониторинг и обслуживание](#74-мониторинг-и-обслуживание)  
+7. [Technology Stack and Architecture](#7-technology-stack-and-architecture)  
+    7.1. [General Architecture](#71-general-architecture)  
+    7.2. [User Management and Security](#72-user-management-and-security)  
+    7.3. [Integration and Communication](#73-integration-and-communication)  
+    7.4. [Monitoring and Maintenance](#74-monitoring-and-maintenance)  
 
-8. [Обучение и документирование](#8-обучение-и-документирование)  
-    8.1. [Обучение пользователей](#81-обучение-пользователей)  
-    8.2. [Материалы для обучения](#82-материалы-для-обучения)  
-    8.3. [Техническая документация](#83-техническая-документация)  
+8. [Training and Documentation](#8-training-and-documentation)  
+    8.1. [User Training](#81-user-training)  
+    8.2. [Training Materials](#82-training-materials)  
+    8.3. [Technical Documentation](#83-technical-documentation)  
 
-9. [Приложения](#9-приложения)  
-    - [Приложение A: Макеты интерфейса](ui.md)
+9. [Appendices](#9-appendices)  
+    - [Appendix A: Interface Mockups](ui.md)
 
 ---
 
+## 1. Introduction
 
-## 1. Введение
+### 1.1. Purpose of the Document
+This document describes the functional and non-functional requirements for developing the Brige Service Management system, which is designed to automate service work tracking at customer sites.
 
-### 1.1. Цель документа
-Данный документ описывает функциональные и нефункциональные требования к разработке системы Brige Service Management, предназначенной для автоматизации учёта сервисных работ на объектах клиентов. 
+The system's goal is to simplify the process of registering completed work, managing requests, storing media data, and integrating with external services. This document serves as the foundation for development, testing, and implementation of the system, as well as ensuring compliance with security and performance requirements.
 
-Целью системы является упрощение процесса регистрации выполненных работ, управление заявками, хранение медиаданных и интеграция с внешними сервисами. Документ служит основой для разработки, тестирования и внедрения системы, а также для обеспечения соответствия требованиям безопасности и производительности.
+### 1.2. Scope
+The Brige Service Management system will be hosted on a secure domain and is intended for use only by authorized company employees. The main system functions include:
+- Managing and registering completed work
+- Managing requests, task distribution, and storing media data (images, documents)
+- Recording photos, descriptions, and other information needed for work analysis and planning
+- Organizing workflow processes
 
-### 1.2. Область применения
-Система Brige Service Management будет размещена на защищённом домене и предназначена для использования только авторизованными сотрудниками компании. Основные функции системы:
-- Ведение учёта и регистрации выполненных работ.
-- Управление заявками, распределение задач и хранение медиаданных (изображений, документов).
-- Фиксации снимков, описаний и другой информации, необходимой для анализа и планирования работ.
-- Организации рабочего процесса.
+### 1.3. Definitions, Abbreviations and Acronyms
+- SRS – Software Requirements Specification
+- GDPR – General Data Protection Regulation
+- SSL – Secure Sockets Layer encryption technology
+- API – Application Programming Interface
+- Keycloak – authentication and authorization management platform used for single sign-on (SSO) and access control
+- PostgreSQL – relational database management system chosen for storing the system's main data
+- Redis – in-memory data store used for caching and speeding up access to frequently requested information
+- Brige Service Management – system for automating and tracking work at customer sites
+- Brige Client – cross-platform client application for accessing system functionality
 
-### 1.3. Определения, сокращения и аббревиатуры
-- SRS – Спецификация Требований к Программному Обеспечению.
-- GDPR – Общий регламент защиты данных.
-- SSL – Технология шифрования данных.
-- API – Интерфейс для взаимодействия приложений.
-- Keycloak – платформа для управления аутентификацией и авторизацией, используемая для единого SSO и разграничения доступа.
-- PostgreSQL – реляционная система управления базами данных, выбранная для хранения основных данных системы.
-- Redis – хранилище данных в памяти, используемое для кэширования и ускорения доступа к часто запрашиваемой информации.
-- Brige Service Management – система для автоматизации и учёта работ на объектах клиентов.
-- Brige Client – кроссплатформенное клиентское приложение для доступа к функционалу системы.
+## 2. General System Description
 
-## 2. Общее описание системы
+### 2.1. System Overview
+Brige Service Management is a new system that replaces current manual processes for managing requests, issuing work orders, registering completed work, and other company workflow processes.
 
-### 2.1. Общий взгляд на систему
-Brige Service Management – это новая система, которая заменяет текущие ручные процессы управления заявками, выдачи заказ-нарядов на выполнение работ, регистрации выполненных работ и других рабочих процессов компании. 
+The system will include a client application (Brige Client) for mobile devices, as well as an administrative interface for managing users and system settings.
 
-Система будет включать в себя клиентское приложение (Brige Client) для мобильных устройств, а также администраторский интерфейс для управления пользователями и настройками системы.
+In the context of this document, the system means an interconnected structure consisting of the following components:
+- **Request management service**, including:
+  - Request registration
+  - Issuing work orders to technicians
+  - Managing priorities and completion deadlines
+  - Tracking task completion status
+  - Analyzing completed work
+- **User management service**, including:
+  - User authentication and authorization
+  - User registration
+  - Managing roles and access rights
+- **Work management service**, including:
+  - Registering completed work
+  - Tracking used materials
+  - Uploading photos and documents confirming completed work
+  - Customer confirmation of completed work
+  - Ordering materials and equipment
+- **Data management service**, including:
+  - Storing and analytical processing of requests, work, and media data
+  - Ensuring data security (encryption, authorization)
+- **Reporting service**, including:
+  - Generating reports on requests, work, and users
+  - Exporting data to various formats (PDF, Excel)
+- **External system integration service**, including:
+  - Integration with mail servers for sending reports
+- **Brige Client mobile application** for iOS, Android, Windows, and Linux
+- **Monitoring and logging service** (second phase), including:
+  - System status and performance monitoring
+  - Event and error logging for diagnostics and troubleshooting
+- **Notification service** (second phase), including:
+  - Sending notifications to users about request status and completed work
+  - Corporate chat for messaging between users
 
-В контексте данного  документа под системой понимается взаимосвязанная структура, состоящая из следующих компонентов:
-  -	сервиса управления заявками, в том числе:
-    -	регистрации заявок
-    -	выдачи заказ-нарядов на выполнение работ исполнителям
-    -	управления приоритетами и сроками выполнения заявок
-    - отслеживания статуса выполнения задач
-    -	анализе выполненных работ
-  -	сервиса управления пользователями, в том числе:
-    -	аутентификации и авторизации пользователей
-    -	регистрации пользователей
-    -	управления ролями и правами доступа
-  -	сервиса управления работами, в том числе:
-    - регистрации выполненных работ
-    -	учёта использованных материалов
-    -	загрузки фотографий и документов, подтверждающих выполненные работы
-    -	подтверждения выполненных работ клиентами
-    -	заказа материалов и оборудования
-  -	сервиса управления данными, в том числе:
-    -	хранения и аналитической обработки заявок, работ и медиаданных
-    -	обеспечения безопасности данных (шифрование, авторизация)
-  -	сервиса отчётности, в том числе:
-    -	формирования отчётов по заявкам, работам и пользователям
-    -	экспорта данных в различные форматы (PDF, Excel)
-  -	сервиса интеграции с внешними системами, в том числе:
-    -	интеграции с почтовым сервером для отправки отчётов
-  -	мобильного приложения Brige Client, для IOS, Android, Windows и Linux
-  -	сервиса мониторинга и логирования (вторая очередь), в том числе:
-    -	мониторинга состояния системы и производительности
-    -	логирования событий и ошибок для диагностики и устранения неисправностей
-  -	сервиса уведомлений (вторая очередь), в том числе:
-    -	отправки уведомлений пользователям о статусе заявок и выполненных работах
-    -	корпоративный чат для обмена сообщениями между пользователями
+The system will be developed using modern technologies and approaches, including microservice architecture, containerization, and cloud solutions. Main focus will be on security, performance, and usability.
 
-Система будет разрабатываться с использованием современных технологий и подходов, включая микросервисную архитектуру, контейнеризацию и облачные решения. Основное внимание будет уделено безопасности, производительности и удобству использования.
+### 2.2. User Classes and Characteristics
+| User Class | Description |
+| ---------- | ----------- |
+| ***Regular Client*** | A client is an authorized user of Brige Client software who can independently register work requests in the system, track their completion progress, and confirm actual work completion and leave feedback. |
+| ***Service Technician*** | A service technician is an authorized user of Brige Client software who receives service work requests and can register completed work, upload media data, change request status, and submit requests to company management for raw materials needed for work completion. |
+| ***Sales Manager*** | A sales manager is an authorized user of Brige Client software who researches customer needs, offers company solutions and services, and can register work requests. |
+| ***Operator*** | An operator is an authorized user of Brige Client software who has access to the administrative part of the software and can manage users, configure access rights, view reports and statistics on completed work. The operator also reviews work requests, distributes them among service technicians and controls their completion, and can interact with clients to clarify request details and receive feedback. |
+| ***Administrator*** | An administrator is an authorized user who has full system access, including user management, external service integration configuration, system status monitoring, and security management. The administrator is also responsible for technical support and solving user problems. |
 
-### 2.2. Классы и характеристики пользователей
-| Класс пользователей | Описание |
-| ------------------- | -------- |
-| ***Клиент (обычный)*** | Клиент - это авторизованный пользователь ПО Brige Client, который может самостоятельно регистрировать заявки на выполнение работ в системеме, отслеживать прогресс их выполнения, а также подтвержать фактическое выполнение работ и оставлять отзывы. |
-| ***Сервисный техник*** | Сервисный техник - это авторизованный пользователь ПО Brige Client, который получает заявки на выполнение сервисных работ и может регистрировать выполненные работы, загружать медиаданные, изменять статус заявки, оформлять заявки руководству компании на сырье и материалы, необходимые для выполнения работ |
-| ***Менеджер по продажам*** | Менеджер по продажам - это авторизованный пользователь ПО Brige Client, который занимается исследованием потребностей клиентов, предлагает решения и услуги компании, а также может регистрировать заявки на выполнение работ. |
-| ***Оператор*** | Оператор - это авторизованный пользователь ПО Brige Client, который имеет доступ к административной части ПО и может управлять пользователями, настраивать права доступа, просматривать отчёты и статистику по выполненным работам. Оператор также рассматривает заявки на выполнение работ, распределяет их между сервисными техниками и контролирует их выполнение, а также может взаимодействовать с клиентами для уточнения деталей заявок и получения обратной связи. |
-| ***Администратор*** | Администратор - это авторизованный пользователь, который имеет полный доступ к системе, включая управление пользователями, настройку интеграции с внешними сервисами, мониторинг состояния системы и управление безопасностью. Администратор также отвечает за техническую поддержку и решение проблем пользователей. |
+### 2.3. Operating Environment
+The operating environment where the system is deployed must meet the following requirements:
 
-### 2.3. Операционная среда
-Операционная среда, на которой развернута система, должна удовлетворять следующим требованиям:
+#### OE-1. Operating System
+The system will run on modern operating systems such as Linux (e.g., Ubuntu, CentOS) for the server part and Android, iOS, Windows, and Linux for the Brige Client application.
 
-#### OC-1. Операционная система 
-Система будет работать на современных операционных системах, таких как Linux (например, Ubuntu, CentOS) для серверной части и Android, iOS, Windows и Linux для клиентского приложения Brige Client.
-#### OC-2. Среда запуска приложений
-Система будет развернута на сервере с поддержкой современных веб-технологий, включая поддержку HTTPS и SSL для обеспечения безопасности передачи данных. 
-#### OC-3. База данных
-Система будет использовать PostgreSQL в качестве основной базы данных для хранения заявок, работ, пользователей и медиаданных. Redis будет использоваться для кэширования часто запрашиваемой информации и ускорения доступа к данным.
-#### OC-4. Веб-сервер
-Система будет использовать собственный веб-сервер, либо Nginx или Apache, в качестве обратного прокси-сервера для обработки входящих запросов и маршрутизации их к соответствующим микросервисам. Веб-сервер будет настроен для работы с HTTPS и SSL, обеспечивая безопасность передачи данных между клиентами и сервером.
-#### OC-5. Мобильное приложение Brige Client
-Brige Client будет разработан с использованием Flutter, что обеспечит кроссплатформенность и возможность работы на Android, iOS, Windows и Linux. 
-#### OC-6. Контейнеризация и оркестрация
-Система будет развернута в контейнерах с использованием Docker, что обеспечит изоляцию сервисов и упрощение процесса развертывания. Kubernetes будет использоваться для оркестрации контейнеров, управления масштабированием и обеспечения высокой доступности системы.
-#### OC-7. Интерфейсы обмена данными
-Система будет интегрирована с корпоративными сервисами почты и др. через RESTful API. Для межсервисного взаимодействия будет использоваться gRPC или REST API, что обеспечит гибкость и масштабируемость системы.
-#### OC-8. Безопасность
-Система будет размещена на защищённом домене с использованием SSL-сертификатов для шифрования данных. Авторизация пользователей будет осуществляться через Keycloak, что обеспечит централизованное управление пользователями и поддержку SSO (единой точки входа). Все данные будут храниться в соответствии с требованиями GDPR, включая шифрование персональных данных (при их наличии в системе) и ограничение доступа к ним.
-#### OC-9. Мониторинг и логирование
-Система будет включать сервис мониторинга и логирования, который будет отслеживать состояние системы, производительность и ошибки. Логи будут храниться в централизованном хранилище для последующего анализа и диагностики проблем. Для мониторинга состояния системы будет использоваться Prometheus или аналогичный инструмент, а для визуализации данных - сервис Grafana.
+#### OE-2. Application Runtime Environment
+The system will be deployed on a server with support for modern web technologies, including HTTPS and SSL support to ensure secure data transmission.
 
-### 2.4. Предположения и зависимости
-- Система должна быть доступна только авторизованным пользователям.
-- Приложение Brige Client нормально функционирует только при условии, что серверная часть системы нормально функционирует и доступна посресредством сети Интернет.
-- Пользователи должны иметь стабильное интернет-соединение для работы с системой в момент загрузки медиаданных и синхронизации данных.
-- На устройствах пользователей должно быть достаточно свободного места для хранения данных приложения Brige Client, включая медиаданные.
+#### OE-3. Database
+The system will use PostgreSQL as the main database for storing requests, work, users, and media data. Redis will be used for caching frequently requested information and speeding up data access.
 
-### 2.5. Ограничения
-- Система должна быть доступна только через защищённый веб-интерфейс (SSL-шлюз).
-- Авторизация пользователей осуществляется по логину и паролю.
-- Обработка и хранение данных должны соответствовать требованиям европейских стандартов.
-- Система должна обеспечивать возможность работы в офлайн-режиме для мобильного клиента Brige Client, с последующей синхронизацией данных при восстановлении соединения.
-- Работа системы не должна приводить к значительному расходу заряда батареи мобильных устройств, особенно в офлайн-режиме и при слабом покрытии сети. 
+#### OE-4. Web Server
+The system will use its own web server or Nginx/Apache as a reverse proxy server for processing incoming requests and routing them to appropriate microservices. The web server will be configured to work with HTTPS and SSL, ensuring secure data transmission between clients and server.
 
-## 3. Функциональные требования
-### 3.1. Регистрация заявок
-#### 3.1.1. Состав функционала
-- Система должна обеспечивать автоматическую генерацию уникального номера обращения/заказа при её создании.
-- Пользователи с ролью "Оператор", либо "Менеджер по продажам" должны иметь возможность вводить данные о заявке, включая:
-  - ***Имя клиента** (не понятно что подразумевается под именем клиента, возможно это ФИО контактного лица или имя компании, возможно сущесвуют клиенты физлица и юрлица)???*
-  - Наименование компании клиента
-  - Адрес клиента
-  - Контактное лицо клиента
-  - Контактный номер клиента
-- Пользователи с ролью "Оператор" должны иметь возможность вводить данные о сервисном технике, включая:
-  - Имя техника
-  - Название компании (BRIGE, BRIGE Service UG, Conveyor System UG и т.д.)
-  - Планируемая дата визита
-  - Планируемое время прибытия 
-- Система должна поддерживать возможность выбора типа планируемой работы:
-  - Установка
-  - Ремонт
-  - Техническое обслуживание
-  - Осмотр
-  - Коммерческий визит
-  - Консультация
-  - Другое (с возможностью ввода текстового описания)
-#### 3.1.2. Детальное описание функционала
+#### OE-5. Brige Client Mobile Application
+Brige Client will be developed using Flutter, ensuring cross-platform compatibility and the ability to work on Android, iOS, Windows, and Linux.
+
+#### OE-6. Containerization and Orchestration
+The system will be deployed in containers using Docker, ensuring service isolation and simplifying the deployment process. Kubernetes will be used for container orchestration, scaling management, and ensuring high system availability.
+
+#### OE-7. Data Exchange Interfaces
+The system will integrate with corporate mail services and others through RESTful API. For inter-service communication, gRPC or REST API will be used, ensuring system flexibility and scalability.
+
+#### OE-8. Security
+The system will be hosted on a secure domain using SSL certificates for data encryption. User authorization will be performed through Keycloak, ensuring centralized user management and SSO (single sign-on) support. All data will be stored in accordance with GDPR requirements, including encryption of personal data (if present in the system) and restricting access to it.
+
+#### OE-9. Monitoring and Logging
+The system will include a monitoring and logging service that will track system status, performance, and errors. Logs will be stored in centralized storage for subsequent analysis and problem diagnosis. Prometheus or similar tools will be used for system status monitoring, and Grafana service will be used for data visualization.
+
+### 2.4. Assumptions and Dependencies
+- The system must be accessible only to authorized users
+- The Brige Client application functions normally only when the server part of the system is functioning normally and accessible via the Internet
+- Users must have a stable internet connection to work with the system when uploading media data and synchronizing data
+- User devices must have sufficient free space to store Brige Client application data, including media data
+
+### 2.5. Constraints
+- The system must be accessible only through a secure web interface (SSL gateway)
+- User authorization is performed using login and password
+- Data processing and storage must comply with European standards requirements
+- The system must provide offline mode capability for the Brige Client mobile application, with subsequent data synchronization when connection is restored
+- System operation should not lead to significant battery drain on mobile devices, especially in offline mode and with weak network coverage
+
+## 3. Functional Requirements
+
+### 3.1. Request Registration
+
+#### 3.1.1. Functionality Scope
+- The system must ensure automatic generation of a unique reference/order number when creating it
+- Users with "Operator" or "Sales Manager" roles must be able to enter request data, including:
+  - ***Client name** (it's unclear what is meant by client name, possibly this is the contact person's full name or company name, possibly there are individual and corporate clients)???*
+  - Client company name
+  - Client address
+  - Client contact person
+  - Client contact number
+- Users with "Operator" role must be able to enter service technician data, including:
+  - Technician name
+  - Company name (BRIGE, BRIGE Service UG, Conveyor System UG, etc.)
+  - Planned visit date
+  - Planned arrival time
+- The system must support the ability to select the type of planned work:
+  - Installation
+  - Repair
+  - Maintenance
+  - Inspection
+  - Commercial visit
+  - Consultation
+  - Other (with the ability to enter text description)
+
+#### 3.1.2. Detailed Functionality Description
 ---
-| Функция | Описание |
-| ------- | -------- |
-| **Заявка.Создание\*** |  |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ПроверкаРегистрации | Система должна проверить, зарегистрирован ли пользователь в базе. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.НетРегистрации | Если пользователь не зарегистрирован, система предлагает следующие варианты: </br>&nbsp;&nbsp; - Зарегистрироваться сейчас. </br>&nbsp;&nbsp; - Продолжить оформление заявки с ограниченным функционалом. </br>&nbsp;&nbsp; - Отменить оформление заявки. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ДанныеКлиента | Заполнение данных клиента. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.НаименованиеКлиента: | Ввод наименования компании-клиента с возможностью выбора из списка (для уже существующих клиентов) или ввода нового значения (для новых клиентов). |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.АдресКлиента | Ввод адреса клиента с автоматической проверкой формата (например, наличие города, улицы и номера дома). |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.КонтактноеЛицо | Ввод ФИО контактного лица. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.КонтактныйНомер | Контактный номер телефона клиента с проверкой на корректный формат. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ДанныеСервисногоТехника* | Заполнение данных сервисного техника |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.КомпанияТехника | Выпадающий список с доступными компаниями (BRIGE, BRIGE Service UG, Conveyor System UG и т.д.). | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ВыборТехника | Выпадающий список с доступными сервисными техниками, выбранной компании. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ДатаВизита | Выбор даты визита через календарь с проверкой на актуальность даты. |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ВремяПрибытия | Ввод предполагаемого времени прибытия в формате HH:MM с валидацией корректности введенных данных. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ТипРаботы | Пользователь выбирает тип планируемой работы через чекбоксы: </br>&nbsp;&nbsp; - Установка </br>&nbsp;&nbsp; - Ремонт </br>&nbsp;&nbsp; - Техническое обслуживание </br>&nbsp;&nbsp; - Осмотр </br>&nbsp;&nbsp; - Коммерческий визит </br>&nbsp;&nbsp; - Консультация </br>&nbsp;&nbsp; - Другое |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ВыбраноДругое | Появляется текстовое поле для детального описания типа работы. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Подтверждение | Пользователь подтверждает введенные данные и отправляет заявку на обработку. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Уведомление | Система отправляет уведомление о создании заявки и сохраняет заявку в базе данных. |
+| Function | Description |
+| -------- | ----------- |
+| **Request.Creation\*** |  |
+| &nbsp;&nbsp;&nbsp;&nbsp;.RegistrationCheck | The system must check if the user is registered in the database. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.NoRegistration | If the user is not registered, the system offers the following options: </br>&nbsp;&nbsp; - Register now. </br>&nbsp;&nbsp; - Continue request processing with limited functionality. </br>&nbsp;&nbsp; - Cancel request processing. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.ClientData | Filling in client data. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ClientName: | Entering client company name with the ability to select from a list (for existing clients) or enter a new value (for new clients). |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ClientAddress | Entering client address with automatic format checking (e.g., presence of city, street, and house number). |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ContactPerson | Entering contact person's full name. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ContactNumber | Client contact phone number with correct format validation. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.ServiceTechnicianData* | Filling in service technician data |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.TechnicianCompany | Dropdown list with available companies (BRIGE, BRIGE Service UG, Conveyor System UG, etc.). | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.TechnicianSelection | Dropdown list with available service technicians from the selected company. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.VisitDate | Selecting visit date through calendar with date relevance checking. |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.ArrivalTime | Entering expected arrival time in HH:MM format with data correctness validation. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.WorkType | User selects planned work type through checkboxes: </br>&nbsp;&nbsp; - Installation </br>&nbsp;&nbsp; - Repair </br>&nbsp;&nbsp; - Maintenance </br>&nbsp;&nbsp; - Inspection </br>&nbsp;&nbsp; - Commercial visit </br>&nbsp;&nbsp; - Consultation </br>&nbsp;&nbsp; - Other |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.OtherSelected | A text field appears for detailed work type description. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Confirmation | User confirms entered data and sends the request for processing. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Notification | System sends notification about request creation and saves the request to the database. |
 ---
-\* Заявка.Создание может быть реализована в двух вариантах:
-- **Вариант 1**: Пользователи с ролью "Оператор" или "Менеджер по продажам" могут создавать заявки, вводя необходимые данные о клиенте и сервисном технике, типе работы и планируемой дате визита.
-- **Вариант 2**: Пользователи с ролью "Клиент" могут создавать заявки, вводя необходимые данные о себе и типе работы, которую они хотят заказать.
+\* Request.Creation can be implemented in two variants:
+- **Variant 1**: Users with "Operator" or "Sales Manager" roles can create requests by entering necessary data about the client and service technician, work type, and planned visit date.
+- **Variant 2**: Users with "Client" role can create requests by entering necessary data about themselves and the type of work they want to order.
 
-### 3.2. Регистрация выполненных работ
-#### 3.2.1. Состав функционала
-- Система должна позволять пользователям с ролью "Сервисный техник" регистрировать выполненные работы, включая текстовое описание, использованные материалы и дополнительные задачи.
-- Система должна поддерживать возможность указания срочности дополнительных работ (низкая, средняя, высокая, критическая).
-- Система должна поддерживать возможность загрузки медиаданных (фотографий, документов) для подтверждения выполненных работ.
-- Система должна автоматически фиксировать время начала и завершения работы.
-#### 3.2.2. Детальное описание функционала
-| Функция                          | Описание |
-| -------------------------------- | -------- |
-| **Работа.Регистрация**           | Детальное оформление процесса регистрации выполненных работ. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Старт   | Пользователь с ролью "Сервисный техник" нажимает кнопку "Начать работу".<br>- Система автоматически сохраняет время начала работы.<br>- Фиксируется геолокация (при наличии разрешения).<br>- Запускается таймер для отслеживания продолжительности работы. <br>- Система меняет статус заявки на "В работе". |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ОписаниеРабот | Пользователь указывает этапы выполненной работы и особенности исполнения.<br>Поддерживается базовое форматирование текста. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Материалы | Пользователь выбирает материалы из выпадающего списка |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Задачи | Ввод описания дополнительной задачи (при необходимости).<br>Выбор срочности задачи (Низкая, Средняя, Высокая, Критическая).<br> Возможность добавления нескольких задач. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Медиа | Возможность множественной загрузки изображений и документов.<br> Система проверяет формат и размер файлов, выводит сообщения об ошибках, если обнаружены несоответствия. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Пауза | При необходимости пользователь может временно приостановить выполнение работы.<br> Система останавливает таймер и сохраняет время паузы. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Продолжение | После устранения причины паузы пользователь нажимает "Продолжить работу".<br> Система возобновляет таймер с учетом ранее прерванного времени. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Завершение  | По окончании работы пользователь фиксирует её завершение.<br>- Система автоматически сохраняет время окончания работы и рассчитывает общее время выполнения.<br>- Заявка переводится в статус "Выполнено". |
---
+### 3.2. Work Completion Registration
 
-### 3.3. Подтверждение выполненной работы
-#### 3.3.1. Состав функционала
-- Система должна предоставлять форму для подтверждения успешности выполнения работы, включая возможность ввода комментариев клиента.
-- Система должна поддерживать получение цифровой подписи клиента для подтверждения выполненных работ.
-#### 3.3.2. Детальное описание функционала
----
-| Функция | Описание |
-| ------- | -------- |
-| **Работа.Подтверждение** |  |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Выполнено | Клиент может выбрать "Да" или "Нет" для подтверждения успешности выполнения работы. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Комментарий | Клиент может оставить комментарий о выполненной работе. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Имя | Клиент вводит своё имя  |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Подпись | Клиент может нарисовать свою подпись на экране устройства. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Подтверждение | При нажатии кнопки "Подтвердить" система должна выполнить следующие действия: </br>&nbsp;&nbsp; - Сохранить комментарий и подпись клиента. </br>&nbsp;&nbsp; - Изменить статус заявки на "Завершено". |
----
+#### 3.2.1. Functionality Scope
+- The system must allow users with "Service Technician" role to register completed work, including text description, used materials, and additional tasks
+- The system must support the ability to specify urgency of additional work (low, medium, high, critical)
+- The system must support the ability to upload media data (photos, documents) to confirm completed work
+- The system must automatically record work start and completion time
 
-### 3.4. Отправка отчётов
-#### 3.4.1. Состав функционала
-- Система должна автоматически отправлять заполненные формы и отчёты на сервер, на указанный корпоративный адрес (например на *info@brige.de*), а также на адрес клиента.
-#### 3.3.2. Детальное описание функционала
+#### 3.2.2. Detailed Functionality Description
+| Function | Description |
+| -------- | ----------- |
+| **Work.Registration** | Detailed processing of completed work registration process. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Start | User with "Service Technician" role clicks "Start Work" button.<br>- System automatically saves work start time.<br>- Geolocation is recorded (if permission is granted).<br>- Timer is started to track work duration. <br>- System changes request status to "In Progress". |
+| &nbsp;&nbsp;&nbsp;&nbsp;.WorkDescription | User specifies completed work stages and execution features.<br>Basic text formatting is supported. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Materials | User selects materials from dropdown list |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Tasks | Entering additional task description (if needed).<br>Selecting task urgency (Low, Medium, High, Critical).<br> Ability to add multiple tasks. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Media | Ability to upload multiple images and documents.<br> System checks file format and size, displays error messages if inconsistencies are found. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Pause | If needed, user can temporarily pause work execution.<br> System stops timer and saves pause time. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Continue | After resolving the pause reason, user clicks "Continue Work".<br> System resumes timer accounting for previously interrupted time. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Completion | After work completion, user records its completion.<br>- System automatically saves work end time and calculates total execution time.<br>- Request is moved to "Completed" status. |
+
+### 3.3. Work Completion Confirmation
+
+#### 3.3.1. Functionality Scope
+- The system must provide a form for confirming successful work completion, including the ability to enter client comments
+- The system must support obtaining client digital signature to confirm completed work
+
+#### 3.3.2. Detailed Functionality Description
 ---
-| Функция | Описание |
-| ------- | -------- |
-| **Отчёт.Отправка** |  |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Отправка.Варианты | Система должна предоставлять следующие варианты отправки отчётов в виде чекбоксов: </br>&nbsp;&nbsp; - Отправить на сервер (всегда включено). </br>&nbsp;&nbsp; - Отправить на корпоративный email. </br>&nbsp;&nbsp; - Отправить на личный email клиента. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.EmailКлиента | Если выбрано "Отправить на личный email клиента", система должна запросить адрес электронной почты клиента. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ФорматОтчёта | Система должна предоставлять возможность выбора формата отчёта: </br>&nbsp;&nbsp; - PDF (по умолчанию) </br>&nbsp;&nbsp; - Excel </br>&nbsp;&nbsp; - Оба формата. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Отправка | При нажатии кнопки "Отправить" система должна выполнить следующие действия: </br>&nbsp;&nbsp; - Сформировать отчёты в выбранных форматах. </br>&nbsp;&nbsp; - Отправить отчёты на сервер и на указанные email-адреса. </br>&nbsp;&nbsp; - Вывести сообщение об успешной отправке или ошибке. </br> Статус заявки должен быть изменён на "Отправлено". | 
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.НетСети | Если нет доступа к интернету, система должна сохранить отчёт локально и попытаться отправить его при следующем подключении к сети. </br> Статус заявки должен быть изменён на "Отправка". |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.СетьВосстановлена | При восстановлении соединения система должна автоматически попытаться отправить ранее сохранённые отчёты. </br> Статус заявки должен быть изменён на "Отправлено". |
+| Function | Description |
+| -------- | ----------- |
+| **Work.Confirmation** |  |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Completed | Client can select "Yes" or "No" to confirm successful work completion. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Comment | Client can leave a comment about the completed work. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Name | Client enters their name  |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Signature | Client can draw their signature on the device screen. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Confirmation | When clicking "Confirm" button, the system must perform the following actions: </br>&nbsp;&nbsp; - Save client comment and signature. </br>&nbsp;&nbsp; - Change request status to "Finished". |
 ---
 
-### 3.5. Формирование отчётов и аналитика
-#### 3.5.1. Состав функционала
-- Система должна предоставлять возможность формирования отчётов по заявкам, выполненным работам и пользователям за определённый период времени.
-- Система должна поддерживать экспорт данных в различные форматы (PDF, Excel) для дальнейшего анализа и отчётности.
-#### 3.5.2. Детальное описание функционала
+### 3.4. Report Sending
+
+#### 3.4.1. Functionality Scope
+- The system must automatically send completed forms and reports to the server, to the specified corporate address (e.g., *info@brige.de*), and also to the client's address
+
+#### 3.4.2. Detailed Functionality Description
 ---
-| Функция | Описание |
-| ------- | -------- |
-| **Отчёт.Формирование** |  |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Период | Пользователь выбирает период для формирования отчёта (начальная и конечная дата). | 
-| &nbsp;&nbsp;&nbsp;&nbsp;.ТипОтчёта | Пользователь выбирает тип отчёта: </br>&nbsp;&nbsp; - По заявкам </br>&nbsp;&nbsp; - По выполненным работам </br>&nbsp;&nbsp; - По пользователям. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.ФорматОтчёта | Пользователь выбирает формат отчёта: </br>&nbsp;&nbsp; - PDF </br>&nbsp;&nbsp; - Excel </br>&nbsp;&nbsp; - Оба формата. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Фильтры | Пользователь может применить фильтры для уточнения данных в отчёте: </br>&nbsp;&nbsp; - По пользователям </br>&nbsp;&nbsp; - По статусам заявок </br>&nbsp;&nbsp; - По типам работ. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Сформировать | При нажатии кнопки "Сформировать отчёт" система должна выполнить следующие действия: </br>&nbsp;&nbsp; - Собрать данные за указанный период. </br>&nbsp;&nbsp; - Сформировать отчёт в выбранном формате. </br>&nbsp;&nbsp; - Вывести отчёт на экран и/или сохранить его локально. </br>&nbsp;&nbsp; - Предложить пользователю скачать отчёт или отправить его по электронной почте. |
+| Function | Description |
+| -------- | ----------- |
+| **Report.Sending** |  |
+| &nbsp;&nbsp;&nbsp;&nbsp;.SendingOptions | The system must provide the following report sending options as checkboxes: </br>&nbsp;&nbsp; - Send to server (always enabled). </br>&nbsp;&nbsp; - Send to corporate email. </br>&nbsp;&nbsp; - Send to client's personal email. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.ClientEmail | If "Send to client's personal email" is selected, the system must request the client's email address. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.ReportFormat | The system must provide the ability to select report format: </br>&nbsp;&nbsp; - PDF (default) </br>&nbsp;&nbsp; - Excel </br>&nbsp;&nbsp; - Both formats. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Sending | When clicking "Send" button, the system must perform the following actions: </br>&nbsp;&nbsp; - Generate reports in selected formats. </br>&nbsp;&nbsp; - Send reports to server and specified email addresses. </br>&nbsp;&nbsp; - Display success or error message. </br> Request status must be changed to "Sent". | 
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.NoNetwork | If there's no internet access, the system must save the report locally and try to send it on next network connection. </br> Request status must be changed to "Sending". |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.NetworkRestored | When connection is restored, the system must automatically try to send previously saved reports. </br> Request status must be changed to "Sent". |
 ---
 
-### 3.6. Администрирование и управление пользователями
-#### 3.6.1. Состав функционала
-- Система должна предоставлять администраторский интерфейс для управления пользователями, ролями и правами доступа.
-- Система должна обеспечивать мониторинг состояния системы, производительности и логирование событий для диагностики и устранения неисправностей.
-- Система должна поддерживать интеграцию с корпоративными сервисами почты для отправки уведомлений и отчётов.
-#### 3.6.2. Детальное описание функционала
+### 3.5. Report Generation and Analytics
+
+#### 3.5.1. Functionality Scope
+- The system must provide the ability to generate reports on requests, completed work, and users for a specific time period
+- The system must support data export to various formats (PDF, Excel) for further analysis and reporting
+
+#### 3.5.2. Detailed Functionality Description
 ---
-| Функция | Описание |
-| ------- | -------- |
-| **Администрирование** | |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Пользователи | Пользователи с ролью "Администратор" могут управлять пользователями системы в части: </br>&nbsp;&nbsp; - Добавление новых пользователей. </br>&nbsp;&nbsp; - Редактирование данных пользователей (имя, email, роль). </br>&nbsp;&nbsp; - Удаление пользователей. </br>&nbsp;&nbsp; - Назначение ролей и прав доступа. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Роли | Администратор может управлять ролями пользователей: </br>&nbsp;&nbsp; - Создание новых ролей. </br>&nbsp;&nbsp; - Редактирование прав доступа для существующих ролей. </br>&nbsp;&nbsp; - Удаление ролей. |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Мониторинг | Пользователи с ролью "Администратор" могут просматривать состояние системы: </br>&nbsp;&nbsp; - Текущие активные пользователи. </br>&nbsp;&nbsp; - Статистика по заявкам и выполненным работам. </br>&nbsp;&nbsp; - Логи событий (ошибки, предупреждения, информационные сообщения, дейсвия пользователей). |
-| &nbsp;&nbsp;&nbsp;&nbsp;.Интеграция | Система должна поддерживать интеграцию с корпоративными сервисами почты для отправки уведомлений и отчётов. |
+| Function | Description |
+| -------- | ----------- |
+| **Report.Generation** |  |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Period | User selects period for report generation (start and end date). | 
+| &nbsp;&nbsp;&nbsp;&nbsp;.ReportType | User selects report type: </br>&nbsp;&nbsp; - By requests </br>&nbsp;&nbsp; - By completed work </br>&nbsp;&nbsp; - By users. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.ReportFormat | User selects report format: </br>&nbsp;&nbsp; - PDF </br>&nbsp;&nbsp; - Excel </br>&nbsp;&nbsp; - Both formats. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Filters | User can apply filters to refine report data: </br>&nbsp;&nbsp; - By users </br>&nbsp;&nbsp; - By request statuses </br>&nbsp;&nbsp; - By work types. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Generate | When clicking "Generate Report" button, the system must perform the following actions: </br>&nbsp;&nbsp; - Collect data for the specified period. </br>&nbsp;&nbsp; - Generate report in selected format. </br>&nbsp;&nbsp; - Display report on screen and/or save it locally. </br>&nbsp;&nbsp; - Offer user to download report or send it by email. |
+---
 
-## 4. Нефункциональные требования
-### 4.1. Работа в офлайн-режиме
-- Brige Client должен обеспечивать возможность работы в офлайн-режиме при отсутствии интернет-соединения.
-- Автоматическая или ручная синхронизация данных с сервером при восстановлении соединения, с применением механизмов разрешения конфликтов, если они возникают.
-### 4.2. Безопасность
-- Все данные должны быть защищены от несанкционированного доступа, включая шифрование персональных данных и использование безопасных протоколов передачи данных.
-- Система должна соответствовать требованиям GDPR для обработки и хранения персональных данных.
-- Доступ к системе должен быть ограничен в соответствии с ролями пользователей (клиентский доступ для Brige Client и администраторский доступ для управления системой).
-### 4.3. Производительность
-- Система должна обеспечивать быстрый отклик (не более 3 секунд) при выполнении основных операций, таких как регистрация заявок, ввод данных и загрузка файлов.
-- Система должна поддерживать одновременную работу множества пользователей без значительного снижения производительности.
-### 4.4. Удобство использования
-- Интерфейс Brige Client должен быть интуитивно понятным и простым в использовании, с минимальным количеством шагов для выполнения основных операций.
-- Адаптивный дизайн для корректного отображения на любых устройствах, включая мобильные телефоны и планшеты.
-- Эффективная навигация между разделами системы, с возможностью быстрого доступа к часто используемым функциям.
-### 4.5. Надёжность
-- Система должна обеспечивать регулярное резервное копирование всех данных для предотвращения потери информации.
-- Логирование событий и ошибок для быстрого устранения неисправностей и анализа производительности.
-- Возможность восстановления данных в случае сбоев или ошибок, включая автоматическое восстановление после сбоев сервера.
-### 4.6. Энергоэффективность
-- Brige Client должен быть оптимизирован для минимального расхода заряда батареи, особенно в режиме офлайн и при слабом покрытии сети Интернет.
+### 3.6. Administration and User Management
 
-## 5. Требования к интерфейсам
-### 5.1. Пользовательский интерфейс
-- Интерфейс пользователя должен быть современным, минималистичным и адаптированным для мобильных устройств. 
-- Образцы экранов ввода, кнопок, выпадающих списков и чекбоксов представлены в приложении в Приложение A: [Макеты интерфейса](ui.md).
-### 5.2. Интеграция и API
-- Система должна предоставлять API для взаимодействия с другими системами, включая возможность получения и отправки данных о заявках и выполненных работах.
-## 6. Системные и аппаратные требования
-### 6.1. Системные требования
-- Серверная часть должна быть развернута на платформе, поддерживающей микросервисы (например, Docker, Kubernetes).
-- База данных должна быть реляционной (например, PostgreSQL, MySQL) или NoSQL (например, MongoDB) в зависимости от требований к данным. 
-### 6.2. Аппаратные требования
-- Сервер должен иметь достаточные ресурсы для обработки большого объёма данных и одновременных запросов от пользователей, не требующий при этом значительных финансовых затрат. Предпочтительно использовать облачные решения (например, AWS, Azure, Google Cloud) для масштабируемости и гибкости.
+#### 3.6.1. Functionality Scope
+- The system must provide an administrative interface for managing users, roles, and access rights
+- The system must ensure system status monitoring, performance monitoring, and event logging for diagnostics and troubleshooting
+- The system must support integration with corporate mail services for sending notifications and reports
 
-## 7. Технический стэк и архитектурное решение
-### 7.1. Общая архитектура
-Система должна быть построена на основе четырехуровневой архитектуры, которая включает клиентский уровень (Presentation Layer, frontend), инфраструктурный уровень (Infrastructure Layer), уровень приложения (Application Layer, backend) и уровень данных (Data Layer).
+#### 3.6.2. Detailed Functionality Description
+---
+| Function | Description |
+| -------- | ----------- |
+| **Administration** | |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Users | Users with "Administrator" role can manage system users regarding: </br>&nbsp;&nbsp; - Adding new users. </br>&nbsp;&nbsp; - Editing user data (name, email, role). </br>&nbsp;&nbsp; - Deleting users. </br>&nbsp;&nbsp; - Assigning roles and access rights. |
+| &nbsp;&nbsp;&nbsp;&nbsp;.Roles | Administrator can manage user roles: </br>&nbsp;&nbsp; - Creating new roles. </br>&nbsp;&nbsp; - Editing access rights for existing roles. </br>&nbsp;&nbsp; - Deleting roles. |
+---
 
-#### 7.1.1. Клиентский уровень (Presentation Layer, frontend)
-Клиентское приложение Brige Client - это мобильное приложение, которое будет использоваться сотрудниками компании для регистрации заявок, выполнения работ, для взаимодействия с клиентами, а также для администрирования системы (в качестве альтернативы для администрирования будет использоваться отдельное приложение).
+## 4. Non-Functional Requirements
 
-Основная задача клиента — отправка данных на обработку и отображение результатов работы системы.
+### 4.1. Offline Mode
+- The Brige Client application must be able to function in offline mode, allowing users to register work, enter data, and take photos without internet connection
+- All data entered in offline mode must be automatically synchronized with the server when internet connection is restored
+- The system must notify users about successful synchronization and any synchronization errors
 
-Клиентское приложение должно быть разработано с использованием Flutter, что позволит создать единое решение для мобильных устройств (Android, iOS), а также для десктопных систем (Windows, Linux) и веб-интерфейса.
+### 4.2. Security
+- All data transmission between client and server must be encrypted using SSL/TLS protocols
+- User authentication must be performed through Keycloak with support for strong passwords and multi-factor authentication
+- All user actions must be logged for security auditing
+- Personal data (if any) must be stored in accordance with GDPR requirements
 
-Brige Client должен поддерживать режим офлайн с локальным хранением данных и последующей синхронизацией с сервером.
+### 4.3. Performance
+- The system response time for basic operations (data loading, form submission) must not exceed 3 seconds
+- The mobile application must launch within 5 seconds on modern devices
+- The system must support concurrent work of at least 100 users without performance degradation
+- Media file upload must be optimized to minimize data usage
 
-#### 7.1.2. Инфраструктурный уровень (Infrastructure Layer)
-Инфраструктурный уровень обеспечивает взаимодействие между клиентским приложением и серверной частью системы. Он включает в себя API Gateway, который управляет запросами от клиентов и направляет их к соответствующим микросервисам.  
-API Gateway должен обеспечивать следующие функции:
-- Маршрутизация запросов к соответствующим микросервисам.
-- Балансировка нагрузки между микросервисами.
+### 4.4. Usability
+- The user interface must be intuitive and require minimal training
+- The application must support multiple languages (German, English, Russian)
+- The interface must be adaptive and work correctly on various screen sizes
+- All key functions must be accessible within 3 clicks from the main screen
 
-#### 7.1.3. Уровень приложения (Application Layer, backend)
-Серверная часть системы - это ядро, где выполняется основная логика обработки данных. Она должна быть реализована с использованием микросервисной архитектуры, где каждый микросервис отвечает за отдельную функциональность (например, управление заявками, загрузка медиафайлов, интеграция).
+### 4.5. Reliability
+- System availability must be at least 99.5% during business hours
+- The system must automatically backup data daily
+- In case of server failure, data entered in offline mode must be preserved and synchronized after recovery
+- The system must handle errors gracefully and provide informative error messages
 
-Серверная часть должна быть разработана на языке Go (Golang), который обеспечивает высокую производительность, встроенную поддержку конкурентности и простоту развертывания в контейнерах.
+### 4.6. Energy Efficiency
+- The mobile application must be optimized for minimal battery consumption
+- Background processes must be minimized when the app is not actively used
+- Network operations must be efficient to reduce power consumption
 
-#### 7.1.4. Уровень данных (Data Layer)
-Уровень данных отвечает за хранение и управление данными, используемыми в системе. Он должен включать в себя следующие компоненты:
-- База данных должна быть реляционной (например, PostgreSQL) для хранения структурированных данных о заявках, клиентах и пользователях.
-- Для хранения медиафайлов (изображений, документов) рекомендуется использовать объектное хранилище, например, MinIO, которое обеспечивает эффективное хранение и доступ к большим объёмам данных.
+## 5. Interface Requirements
 
-Графически схема архитектуры системы представлена на рисунке ниже:
-<img src="img/Architecture.png" alt="Архитектура системы">
+### 5.1. User Interface
+- The interface must follow modern design principles and be visually appealing
+- Navigation must be consistent throughout the application
+- Forms must include data validation with clear error messages
+- The application must support touch gestures for mobile devices
+- The interface must be accessible for users with disabilities
 
-### 7.2. Управление пользователями и безопасность
-#### 7.2.1. Централизованное управление идентификацией
-  - Keycloak как основа системы управления пользователями и их доступом (IAM)
-  - Настраиваемые типы аутентификации для разных категорий пользователей
-  #### 7.2.2. Ролевая модель доступа
-  - Основные роли: администратор, руководитель, техник, клиент
-  - Дополнительные роли: аналитик, диспетчер, аудитор, менеджер по продажам
-  - Гибкие разрешения на уровне отдельных функций системы
-  - Контекстно-зависимые разрешения (например, доступ только к своим заявкам или ко всем заявкам отдела)
-#### 7.2.3. Защита данных
-  - Шифрование данных в состоянии покоя (data at rest) для конфиденциальной информации
-  - Полное шифрование канала связи (TLS 1.3) для всех коммуникаций
-  - Токены JWT с коротким временем жизни для авторизации API
-  - Политики безопасности паролей в соответствии с NIST SP 800-63B
-  - Регулярные проверки безопасности 
+### 5.2. Integration and API
+- The system must provide RESTful API for integration with external systems
+- API must be documented and versioned
+- Integration with email services must support various protocols (SMTP, IMAP)
+- The system must support webhook notifications for real-time updates
 
-### 7.3. Интеграция и коммуникация
-#### 7.3.1. Микросервисная архитектура
-  - Разделение системы на независимые микросервисы для управления заявками, пользователями, медиафайлами и интеграциями
-  - Использование RESTful API и gRPC для межсервисного взаимодействия
-  - Контейнеризация микросервисов с использованием Docker и Kubernetes для оркестрации
-  - Автоматическое масштабирование сервисов в зависимости от нагрузки
+## 6. System and Hardware Requirements
 
-#### 7.3.2. API Gateway и межсервисное взаимодействие
-  - Использование API Gateway (например, Kong или Traefik) для централизованного управления доступом к микросервисам
-  - Поддержка синхронных и асинхронных коммуникаций между сервисами
-  - Единая точка входа для всех клиентских запросов с маршрутизацией к соответствующим микросервисам
+### 6.1. System Requirements
+**Server Requirements:**
+- Operating System: Linux (Ubuntu 20.04+ or CentOS 8+)
+- Minimum RAM: 8 GB
+- Minimum Storage: 500 GB SSD
+- Network: High-speed internet connection
 
-#### 7.3.3. Внешние интеграции
-  - Интеграция с внешними системами через REST API и Webhooks
-  - Возможность подключения сторонних сервисов для геолокации и уведомлений
-  - Использование стандартных протоколов (SMTP, IMAP) для отправки уведомлений по электронной почте
-  - Поддержка экспорта данных в различные форматы (PDF, Excel)
+**Mobile Application Requirements:**
+- Android: Version 8.0 or higher
+- iOS: Version 12.0 or higher
+- Windows: Windows 10 or higher
+- Linux: Ubuntu 18.04+ or equivalent
 
-### 7.4. Мониторинг и обслуживание
-#### 7.4.1. Мониторинг системы
-- Использование Prometheus для сбора метрик производительности и бизнес-показателей
-- Grafana для визуализации метрик и построения информационных панелей
-- Алертинг на базе Alertmanager для оповещения о критических событиях
+### 6.2. Hardware Requirements
+**Mobile Devices:**
+- Minimum RAM: 2 GB
+- Storage: At least 1 GB free space
+- Camera: For photo capture functionality
+- GPS: For location services (optional)
+- Internet connection: Wi-Fi or mobile data
 
-#### 7.4.2. Операционное обслуживание
-- Автоматизированное развертывание через CI/CD pipelines (например, GitLab CI или GitHub Actions)
-- Резервное копирование данных с политикой хранения и проверкой целостности
-- Планы аварийного восстановления и процедуры переключения на резервные системы
+## 7. Technology Stack and Architecture
 
-## 8. Обучение и документирование
-### 8.1. Обучение пользователей
-### 8.1.1. Программа обучения
-- Базовое обучение для всех пользователей:
-  - Введение в систему Brige Client
-  - Основные функции и интерфейс
-  - Регистрация заявок и выполнение работ
-- Расширенное обучение для администраторов и продвинутых пользователей:
-  - Управление пользователями и ролями
-  - Настройка системы 
-  - Мониторинг и аналитика
-  - Устранение распространённых проблем
-  - Работа с логами и метриками
-  - Поддержка пользователей
+### 7.1. General Architecture
+- Microservices architecture using containerization (Docker)
+- Container orchestration with Kubernetes
+- Load balancing and auto-scaling capabilities
+- Cloud-native deployment with high availability
 
-### 8.2. Материалы для обучения
-- Руководство пользователей в электронном формате
-- Встроенные подсказки и инструкции в интерфейсе Brige Client
+### 7.2. User Management and Security
+- Keycloak for authentication and authorization
+- SSL/TLS encryption for all communications
+- Role-based access control (RBAC)
+- Security auditing and logging
 
-### 8.3. Техническая документация
-- Архитектурная документация:
-  - Описание архитектуры системы и её компонентов
-  - Диаграммы взаимодействия микросервисов
-- Спецификация API
-- Руководство по развертыванию:
-  - Пошаговая инструкция по установке и настройке серверной части
-  - Инструкции по настройке окружения и зависимостей
-- Инструкции по обслуживанию и мониторингу
-- Процедуры резервного копирования и восстановления:
-  
-## 9. Приложения
-### Приложение A: [Макеты интерфейса](ui.md)
+### 7.3. Integration and Communication
+- RESTful APIs for external integrations
+- gRPC for internal service communication
+- Message queuing for asynchronous processing
+- API gateway for request routing and rate limiting
+
+### 7.4. Monitoring and Maintenance
+- Prometheus for system monitoring
+- Grafana for data visualization and dashboards
+- Centralized logging with log aggregation
+- Automated backup and disaster recovery procedures
+
+## 8. Training and Documentation
+
+### 8.1. User Training
+- Online training modules for each user role
+- Video tutorials for common tasks
+- Interactive help system within the application
+- Regular training sessions for new features
+
+### 8.2. Training Materials
+- User manuals in multiple languages
+- Quick reference guides
+- FAQ and troubleshooting guides
+- Best practices documentation
+
+### 8.3. Technical Documentation
+- System architecture documentation
+- API documentation with examples
+- Deployment and configuration guides
+- Maintenance and troubleshooting procedures
+
+## 9. Appendices
+- [Appendix A: Interface Mockups](ui.md)
