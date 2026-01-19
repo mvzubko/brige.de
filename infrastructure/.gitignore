@@ -1,0 +1,27 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# SSL certificates
+nginx/ssl/*.pem
+nginx/ssl/*.key
+nginx/ssl/*.crt
+!nginx/ssl/.gitkeep
+
+# Backups
+backups/
+*.sql.gz
+*.rdb.gz
+*.tar.gz
+
+# Logs
+*.log
+logs/
+
+# Docker volumes data (if mounted locally)
+postgres_data/
+redis_data/
+minio_data/
+prometheus_data/
+grafana_data/

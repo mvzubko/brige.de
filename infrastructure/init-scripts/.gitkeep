@@ -1,0 +1,2 @@
+# Place PostgreSQL initialization scripts here
+# Files with .sql extension will be executed on first startup
