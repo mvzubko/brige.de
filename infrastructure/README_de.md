@@ -77,28 +77,26 @@ sudo cp /etc/letsencrypt/live/brige.de/privkey.pem infrastructure/nginx/ssl/key.
 
 ## DNS-Konfiguration
 
-DNS-Einträge für Ihre Domain konfigurieren:
+Services sind direkt über IP-Adresse und Port erreichbar (VPS-IP: 57.128.239.26):
 
-- `keycloak.brige.de` → VPS IP
-- `minio.brige.de` → VPS IP
-- `minio-api.brige.de` → VPS IP
-- `prometheus.brige.de` → VPS IP
-- `grafana.brige.de` → VPS IP
-- `api.brige.de` → VPS IP
-- `service.brige.de` → VPS IP
+- **Keycloak:** http://57.128.239.26:8080 oder https://57.128.239.26
+- **MinIO Console:** http://57.128.239.26:9001 oder https://57.128.239.26
+- **MinIO API:** http://57.128.239.26:9000
+- **Prometheus:** http://57.128.239.26:9090 oder https://57.128.239.26
+- **Grafana:** http://57.128.239.26:3000 oder https://57.128.239.26
 
 ## Ersteinrichtung
 
 ### Keycloak
 
-1. Zugriff auf https://keycloak.brige.de
+1. Zugriff auf http://57.128.239.26:8080 oder https://57.128.239.26
 2. Anmeldung mit Admin-Anmeldedaten aus `.env`
 3. Realm für Brige erstellen
 4. Clients und Benutzer konfigurieren
 
 ### MinIO
 
-1. Zugriff auf https://minio.brige.de
+1. Zugriff auf http://57.128.239.26:9001 oder https://57.128.239.26
 2. Anmeldung mit Root-Anmeldedaten aus `.env`
 3. Buckets erstellen:
    - `brige-media` - für hochgeladene Bilder und Dokumente
@@ -106,7 +104,7 @@ DNS-Einträge für Ihre Domain konfigurieren:
 
 ### Grafana
 
-1. Zugriff auf https://grafana.brige.de
+1. Zugriff auf http://57.128.239.26:3000 oder https://57.128.239.26
 2. Anmeldung mit Admin-Anmeldedaten aus `.env`
 3. Prometheus-Datenquelle ist vorkonfiguriert
 4. Dashboards importieren oder erstellen

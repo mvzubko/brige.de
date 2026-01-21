@@ -88,28 +88,26 @@ make restore TIMESTAMP=YYYYMMDD_HHMMSS
 
 ## DNS настройка
 
-Настройте DNS записи для вашего домена:
+Сервисы доступны напрямую по IP адресу и порту (IP VPS: 57.128.239.26):
 
-- `keycloak.brige.de` → IP вашего VPS
-- `minio.brige.de` → IP вашего VPS
-- `minio-api.brige.de` → IP вашего VPS
-- `prometheus.brige.de` → IP вашего VPS
-- `grafana.brige.de` → IP вашего VPS
-- `api.brige.de` → IP вашего VPS
-- `service.brige.de` → IP вашего VPS
+- **Keycloak:** http://57.128.239.26:8080 или https://57.128.239.26
+- **MinIO Console:** http://57.128.239.26:9001 или https://57.128.239.26
+- **MinIO API:** http://57.128.239.26:9000
+- **Prometheus:** http://57.128.239.26:9090 или https://57.128.239.26
+- **Grafana:** http://57.128.239.26:3000 или https://57.128.239.26
 
 ## Первоначальная настройка
 
 ### Keycloak
 
-1. Откройте https://keycloak.brige.de
+1. Откройте http://57.128.239.26:8080 или https://57.128.239.26
 2. Войдите с учетными данными администратора из `.env`
 3. Создайте realm для Brige
 4. Настройте клиентов и пользователей
 
 ### MinIO
 
-1. Откройте https://minio.brige.de
+1. Откройте http://57.128.239.26:9001 или https://57.128.239.26
 2. Войдите с root учетными данными из `.env`
 3. Создайте buckets:
    - `brige-media` - для загруженных изображений и документов
@@ -117,7 +115,7 @@ make restore TIMESTAMP=YYYYMMDD_HHMMSS
 
 ### Grafana
 
-1. Откройте https://grafana.brige.de
+1. Откройте http://57.128.239.26:3000 или https://57.128.239.26
 2. Войдите с учетными данными администратора из `.env`
 3. Источник данных Prometheus предварительно настроен
 4. Импортируйте или создайте дашборды
