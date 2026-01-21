@@ -31,7 +31,7 @@ Die Entwicklungsumgebung läuft auf einer lokalen virtuellen Maschine mit dersel
 2. **Neue VM erstellen:**
    - Name: `Brige Dev Environment`
    - Typ: Linux
-   - Version: Debian (64-bit)
+   - Version: Ubuntu (64-bit)
 
 3. **VM-Ressourcen konfigurieren:**
    - **RAM:** 4096 MB (4 GB) Minimum, 8192 MB (8 GB) empfohlen
@@ -51,7 +51,7 @@ Die Entwicklungsumgebung läuft auf einer lokalen virtuellen Maschine mit dersel
 2. **Neue VM erstellen:**
    - Wählen Sie "Create a New Virtual Machine"
    - Wählen Sie "I will install the operating system later"
-   - Gastbetriebssystem: Linux, Debian 11.x 64-bit
+   - Gastbetriebssystem: Linux, Ubuntu 24.04 LTS 64-bit
    - Name: `Brige Dev Environment`
 
 3. **Ressourcen konfigurieren:**
@@ -63,13 +63,13 @@ Die Entwicklungsumgebung läuft auf einer lokalen virtuellen Maschine mit dersel
    - NAT für Internet
    - Custom: VMnet1 (Host-only) für Host-Zugriff
 
-## Schritt 2: Debian installieren
+## Schritt 2: Ubuntu installieren
 
-1. **Debian ISO herunterladen:**
-   - https://www.debian.org/download
-   - Wählen Sie Debian 11 oder 12 (netinst ISO)
+1. **Ubuntu ISO herunterladen:**
+   - https://ubuntu.com/download/server
+   - Wählen Sie Ubuntu 24.04 LTS (Server ISO)
 
-2. **Debian in VM installieren:**
+2. **Ubuntu in VM installieren:**
    - ISO an VM anhängen
    - Von ISO booten
    - Installationsassistenten folgen
@@ -97,11 +97,11 @@ sudo apt install -y \
 
 # Docker's offiziellen GPG-Schlüssel hinzufügen
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # Repository einrichten
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Docker Engine installieren
@@ -194,26 +194,17 @@ sudo nano /etc/hosts
 notepad C:\Windows\System32\drivers\etc\hosts
 ```
 
-Diese Zeilen hinzufügen (ersetzen Sie `<VM_IP>` durch tatsächliche VM-IP):
-```
-<VM_IP>  dev.brige.de
-<VM_IP>  keycloak.dev.brige.de
-<VM_IP>  minio.dev.brige.de
-<VM_IP>  minio-api.dev.brige.de
-<VM_IP>  prometheus.dev.brige.de
-<VM_IP>  grafana.dev.brige.de
-<VM_IP>  api.dev.brige.de
-<VM_IP>  service.dev.brige.de
-```
+Hinweis: Da wir IP-Adressen anstelle von Domänennamen verwenden, können Sie direkt über IP und Port auf Services zugreifen.
 
 ## Schritt 8: Auf Services zugreifen
 
-Nach der Bereitstellung sind Services verfügbar unter:
+Nach der Bereitstellung sind Services verfügbar unter (VM-IP: 192.168.1.200):
 
-- **Keycloak:** http://keycloak.dev.brige.de (oder https)
-- **MinIO Console:** http://minio.dev.brige.de (oder https)
-- **Prometheus:** http://prometheus.dev.brige.de (oder https)
-- **Grafana:** http://grafana.dev.brige.de (oder https)
+- **Keycloak:** http://192.168.1.200:8080 oder https://192.168.1.200
+- **MinIO Console:** http://192.168.1.200:9001 oder https://192.168.1.200
+- **MinIO API:** http://192.168.1.200:9000
+- **Prometheus:** http://192.168.1.200:9090 oder https://192.168.1.200
+- **Grafana:** http://192.168.1.200:3000 oder https://192.168.1.200
 
 ## Entwicklungs-Workflow
 

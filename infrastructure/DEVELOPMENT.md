@@ -31,7 +31,7 @@ The development environment runs on a local virtual machine with the same config
 2. **Create new VM:**
    - Name: `Brige Dev Environment`
    - Type: Linux
-   - Version: Debian (64-bit)
+   - Version: Ubuntu (64-bit)
 
 3. **Configure VM resources:**
    - **RAM:** 4096 MB (4 GB) minimum, 8192 MB (8 GB) recommended
@@ -51,7 +51,7 @@ The development environment runs on a local virtual machine with the same config
 2. **Create new VM:**
    - Select "Create a New Virtual Machine"
    - Choose "I will install the operating system later"
-   - Guest OS: Linux, Debian 11.x 64-bit
+   - Guest OS: Linux, Ubuntu 24.04 LTS 64-bit
    - Name: `Brige Dev Environment`
 
 3. **Configure resources:**
@@ -63,13 +63,13 @@ The development environment runs on a local virtual machine with the same config
    - NAT for internet
    - Custom: VMnet1 (Host-only) for host access
 
-## Step 2: Install Debian
+## Step 2: Install Ubuntu
 
-1. **Download Debian ISO:**
-   - https://www.debian.org/download
-   - Choose Debian 11 or 12 (netinst ISO)
+1. **Download Ubuntu ISO:**
+   - https://ubuntu.com/download/server
+   - Choose Ubuntu 24.04 LTS (Server ISO)
 
-2. **Install Debian in VM:**
+2. **Install Ubuntu in VM:**
    - Attach ISO to VM
    - Boot from ISO
    - Follow installation wizard
@@ -97,11 +97,11 @@ sudo apt install -y \
 
 # Add Docker's official GPG key
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # Set up repository
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Install Docker Engine
@@ -194,26 +194,17 @@ sudo nano /etc/hosts
 notepad C:\Windows\System32\drivers\etc\hosts
 ```
 
-Add these lines (replace `<VM_IP>` with actual VM IP):
-```
-<VM_IP>  dev.brige.de
-<VM_IP>  keycloak.dev.brige.de
-<VM_IP>  minio.dev.brige.de
-<VM_IP>  minio-api.dev.brige.de
-<VM_IP>  prometheus.dev.brige.de
-<VM_IP>  grafana.dev.brige.de
-<VM_IP>  api.dev.brige.de
-<VM_IP>  service.dev.brige.de
-```
+Note: Since we use IP addresses instead of domain names, you can access services directly by IP and port.
 
 ## Step 8: Access Services
 
-After deployment, services are available at:
+After deployment, services are available at (VM IP: 192.168.1.200):
 
-- **Keycloak:** http://keycloak.dev.brige.de (or https)
-- **MinIO Console:** http://minio.dev.brige.de (or https)
-- **Prometheus:** http://prometheus.dev.brige.de (or https)
-- **Grafana:** http://grafana.dev.brige.de (or https)
+- **Keycloak:** http://192.168.1.200:8080 or https://192.168.1.200
+- **MinIO Console:** http://192.168.1.200:9001 or https://192.168.1.200
+- **MinIO API:** http://192.168.1.200:9000
+- **Prometheus:** http://192.168.1.200:9090 or https://192.168.1.200
+- **Grafana:** http://192.168.1.200:3000 or https://192.168.1.200
 
 ## Development Workflow
 

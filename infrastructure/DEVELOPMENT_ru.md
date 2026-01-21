@@ -31,7 +31,7 @@
 2. **Создайте новую VM:**
    - Имя: `Brige Dev Environment`
    - Тип: Linux
-   - Версия: Debian (64-bit)
+   - Версия: Ubuntu (64-bit)
 
 3. **Настройте ресурсы VM:**
    - **RAM:** 4096 MB (4 GB) минимум, 8192 MB (8 GB) рекомендуется
@@ -51,7 +51,7 @@
 2. **Создайте новую VM:**
    - Выберите "Create a New Virtual Machine"
    - Выберите "I will install the operating system later"
-   - Гостевая ОС: Linux, Debian 11.x 64-bit
+   - Гостевая ОС: Linux, Ubuntu 24.04 LTS 64-bit
    - Имя: `Brige Dev Environment`
 
 3. **Настройте ресурсы:**
@@ -63,13 +63,13 @@
    - NAT для интернета
    - Custom: VMnet1 (Host-only) для доступа с хоста
 
-## Шаг 2: Установка Debian
+## Шаг 2: Установка Ubuntu
 
-1. **Скачайте Debian ISO:**
-   - https://www.debian.org/download
-   - Выберите Debian 11 или 12 (netinst ISO)
+1. **Скачайте Ubuntu ISO:**
+   - https://ubuntu.com/download/server
+   - Выберите Ubuntu 24.04 LTS (Server ISO)
 
-2. **Установите Debian в VM:**
+2. **Установите Ubuntu в VM:**
    - Подключите ISO к VM
    - Загрузитесь с ISO
    - Следуйте мастеру установки
@@ -97,11 +97,11 @@ sudo apt install -y \
 
 # Добавить официальный GPG ключ Docker
 sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 # Настроить репозиторий
 echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
 # Установить Docker Engine
@@ -194,26 +194,17 @@ sudo nano /etc/hosts
 notepad C:\Windows\System32\drivers\etc\hosts
 ```
 
-Добавьте эти строки (замените `<VM_IP>` на реальный IP VM):
-```
-<VM_IP>  dev.brige.de
-<VM_IP>  keycloak.dev.brige.de
-<VM_IP>  minio.dev.brige.de
-<VM_IP>  minio-api.dev.brige.de
-<VM_IP>  prometheus.dev.brige.de
-<VM_IP>  grafana.dev.brige.de
-<VM_IP>  api.dev.brige.de
-<VM_IP>  service.dev.brige.de
-```
+Примечание: Поскольку мы используем IP адреса вместо доменных имен, вы можете обращаться к сервисам напрямую по IP и порту.
 
 ## Шаг 8: Доступ к сервисам
 
-После развертывания сервисы доступны по адресам:
+После развертывания сервисы доступны по адресам (IP VM: 192.168.1.200):
 
-- **Keycloak:** http://keycloak.dev.brige.de (или https)
-- **MinIO Console:** http://minio.dev.brige.de (или https)
-- **Prometheus:** http://prometheus.dev.brige.de (или https)
-- **Grafana:** http://grafana.dev.brige.de (или https)
+- **Keycloak:** http://192.168.1.200:8080 или https://192.168.1.200
+- **MinIO Console:** http://192.168.1.200:9001 или https://192.168.1.200
+- **MinIO API:** http://192.168.1.200:9000
+- **Prometheus:** http://192.168.1.200:9090 или https://192.168.1.200
+- **Grafana:** http://192.168.1.200:3000 или https://192.168.1.200
 
 ## Рабочий процесс разработки
 

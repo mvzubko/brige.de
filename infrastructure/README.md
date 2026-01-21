@@ -75,30 +75,28 @@ sudo cp /etc/letsencrypt/live/brige.de/privkey.pem infrastructure/nginx/ssl/key.
 0 0 * * * certbot renew --quiet && docker-compose -f /path/to/infrastructure/docker-compose.yml restart nginx
 ```
 
-## DNS Configuration
+## Service Access
 
-Configure DNS records for your domain:
+Services are accessible directly by IP address and port (VPS IP: 57.128.239.26):
 
-- `keycloak.brige.de` → VPS IP
-- `minio.brige.de` → VPS IP
-- `minio-api.brige.de` → VPS IP
-- `prometheus.brige.de` → VPS IP
-- `grafana.brige.de` → VPS IP
-- `api.brige.de` → VPS IP
-- `service.brige.de` → VPS IP
+- **Keycloak:** http://57.128.239.26:8080 or https://57.128.239.26
+- **MinIO Console:** http://57.128.239.26:9001 or https://57.128.239.26
+- **MinIO API:** http://57.128.239.26:9000
+- **Prometheus:** http://57.128.239.26:9090 or https://57.128.239.26
+- **Grafana:** http://57.128.239.26:3000 or https://57.128.239.26
 
 ## Initial Setup
 
 ### Keycloak
 
-1. Access https://keycloak.brige.de
+1. Access http://57.128.239.26:8080 or https://57.128.239.26
 2. Login with admin credentials from `.env`
 3. Create realm for Brige
 4. Configure clients and users
 
 ### MinIO
 
-1. Access https://minio.brige.de
+1. Access http://57.128.239.26:9001 or https://57.128.239.26
 2. Login with root credentials from `.env`
 3. Create buckets:
    - `brige-media` - for uploaded images and documents
@@ -106,7 +104,7 @@ Configure DNS records for your domain:
 
 ### Grafana
 
-1. Access https://grafana.brige.de
+1. Access http://57.128.239.26:3000 or https://57.128.239.26
 2. Login with admin credentials from `.env`
 3. Prometheus datasource is pre-configured
 4. Import or create dashboards

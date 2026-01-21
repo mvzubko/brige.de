@@ -8,4 +8,12 @@
 
 Предлагаемая реализация системы описывается в документе [Спецификация требований к программному обеспечению (SRS) - Русская версия](/docs/srs_ru.md)
 
+## Инфраструктура
+
+Документация и руководства по настройке инфраструктуры:
+
+- **Обзор инфраструктуры:** [infrastructure/README.md](infrastructure/README.md) | [infrastructure/README_ru.md](infrastructure/README_ru.md) | [infrastructure/README_de.md](infrastructure/README_de.md)
+- **Настройка продакшн:** [infrastructure/INSTALL.md](infrastructure/INSTALL.md) | [infrastructure/INSTALL_ru.md](infrastructure/INSTALL_ru.md) | [infrastructure/INSTALL_de.md](infrastructure/INSTALL_de.md)
+- **Настройка разработки:** [infrastructure/DEVELOPMENT.md](infrastructure/DEVELOPMENT.md) | [infrastructure/DEVELOPMENT_ru.md](infrastructure/DEVELOPMENT_ru.md) | [infrastructure/DEVELOPMENT_de.md](infrastructure/DEVELOPMENT_de.md)
+
 Вы можете прочитать этот документ на английском языке в [README.md](README.md), либо на немецком языке в [README_de.md](README_de.md).
